@@ -1,0 +1,4 @@
+{
+	"getAllCustomers": "getAllCustomers.json",
+	"saveCustomer":"saveCustomer.json"
+}

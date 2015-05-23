@@ -1,0 +1,11 @@
+<html>
+	<head></head>
+	<body>
+		<div data-bind="visible:isBusy">isBusy</div>
+		<!-- ListBox Customers-->
+		<div data-bind="template:{foreach:customers,name:'Customer'}">
+		</div>
+		<!-- Button Refresh -->
+		<button data-bind="click:refreshCommand">Refresh</button>
+	</body>
+</html>
