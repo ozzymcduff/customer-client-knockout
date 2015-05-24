@@ -35,20 +35,21 @@ function MainViewModel(service){
         if (!isBusy() && customer.isDirty){
             isBusy(true);
 
-            service.saveCustomer(customer, function (result){ 
+            return service.saveCustomer(customer, function (result){ 
                 customer.isDirty = false;
             }).complete(function() {
                 isBusy(false);
             });
         }
+        return null;
     };
 
     this.refreshCommand = function(){
         if (isBusy() ){
-            return;
+            return null;
         }
         isBusy(true);
-        service.getCustomers(function (data) {
+        return service.getCustomers(function (data) {
             customers(data.map(function(model) {
                 return new CustomerViewModel(model, self.saveCustomerCommand);
             }));

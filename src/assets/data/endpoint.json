@@ -1,4 +1,4 @@
 {
-	"getAllCustomers": "getAllCustomers.json",
-	"saveCustomer":"saveCustomer.json"
+  "getAllCustomers": "http://customerservice.azurewebsites.net/CustomerService.svc/GetAllCustomers",
+  "saveCustomer": "http://customerservice.azurewebsites.net/CustomerService.svc/SaveCustomer"
 }
