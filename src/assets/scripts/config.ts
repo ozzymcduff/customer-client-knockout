@@ -1,7 +1,21 @@
+declare var requirejs: Require;
+interface moduleStatic{
+    exports:Object
+}
+declare var module: moduleStatic;
+
+if (typeof module !== 'undefined' && module.exports) {
+  requirejs = require('requirejs');
+  requirejs.config({
+    nodeRequire: require
+  });
+}else{
+    requirejs = require;
+}
 /**
  * Application configuration declaration.
  */
-require.config({
+requirejs.config({
 
     baseUrl: 'assets/scripts/',
 
