@@ -8,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/wallymathieu/mvvmc"
   },
+  "license": "MIT",
   "developedBy": "wallymathieu",
   "devDependencies": {
     "grunt": "^0.4.5",
