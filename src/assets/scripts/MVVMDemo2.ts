@@ -7,11 +7,10 @@
 
 /// <amd-dependency path="template!../templates/MainPage.html" />
 /// <amd-dependency path="template!../templates/Customer.html" />
-/// <amd-dependency path="model/DataService" />
-/// <amd-dependency path="viewModel/MainViewModel" />
 /// <amd-dependency path="json!data/endpoint.json" />
-/// <amd-dependency path="infrastructure/ajax" />
 declare var require: (moduleId: string) => any;
+
+'use strict';
 
 import DataService = require("model/DataService");
 import MainViewModel = require("viewModel/MainViewModel");
@@ -22,7 +21,7 @@ var endpoint = require("json!data/endpoint.json");
 /**
  * YUIDoc_comment
  *
- * @class TestApp
+ * @class MvvmDemo2App
  * @module namespace
  * @constructor
  **/
@@ -32,7 +31,7 @@ function MvvmDemo2App() {
     /**
      * @overridden Base.createChildren
      */
-    this.init = function(node):void {
+    this.init = (node):void => {
         ko.applyBindings(mainVm, node);
         mainVm.refreshCommand();
     }

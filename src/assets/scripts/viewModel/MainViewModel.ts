@@ -1,19 +1,18 @@
 /// <reference path="../_declare/require.d.ts" />
 /// <reference path="../_declare/bluebird.d.ts" />
 /// <reference path="CustomerViewModel.ts"/>
-/// <amd-dependency path="viewModel/CustomerViewModel" />
 /// <amd-dependency path="bluebird" />
-
 import ko = require("knockout");
 import Promise = require("bluebird");
 import CustomerViewModel = require("viewModel/CustomerViewModel");
+'use strict';
 
 function MainViewModel(service){
     var self = this;
     var customers = ko.observableArray([]);
     var isBusy = ko.observable(false);
     Object.defineProperty(this, "customers", {
-        get: function(){ return customers(); }
+        get: ()=>{ return customers(); }
     });
     Object.defineProperty(this, "isBusy", {
         get: isBusy,
@@ -26,23 +25,23 @@ function MainViewModel(service){
         });
     }
     
-    var subscription = ko.computed(allDirtyCustomers).subscribe(function(customersToSave) {
+    var subscription = ko.computed(allDirtyCustomers).subscribe((customersToSave) => {
         if (customersToSave.length>0){
-            customersToSave.forEach(function(customer) {
+            customersToSave.forEach((customer) => {
                 self.saveCustomerCommand(customer);
             });
         }
     });
 
-    this.saveCustomerCommand = function(customer) : Promise<Boolean>{
+    this.saveCustomerCommand = (customer) : Promise<Boolean> =>{
         if (!isBusy() && customer.isDirty){
             isBusy(true);
 
-            return service.saveCustomer(customer).then(function (result){ 
+            return service.saveCustomer(customer).then((result) =>{ 
                 customer.isDirty = false;
                 isBusy(false);
                 return result;
-            }).catch(function() {
+            }).catch(()=> {
                 isBusy(false);
             });
         }else{
@@ -50,18 +49,18 @@ function MainViewModel(service){
         }
     };
 
-    this.refreshCommand = function() : Promise<Array<any>>{ 
+    this.refreshCommand = () : Promise<Array<any>> => { 
         if (isBusy() ){
             return Promise.resolve(customers());
         }
         isBusy(true);
-        return service.getCustomers().then(function (data) {
+        return service.getCustomers().then((data) => {
             isBusy(false);
-            customers(data.map(function(model) {
+            customers(data.map((model) => {
                 return new CustomerViewModel(model);
             }));
             return customers();
-        }).catch(function(errorThrown) {
+        }).catch((errorThrown) => {
             isBusy(false);
             // Display error, normally this would be done through a property
             alert(errorThrown);

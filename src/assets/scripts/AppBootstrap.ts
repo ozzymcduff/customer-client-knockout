@@ -6,14 +6,9 @@
 /**
  * Main entry point for RequireJS
  */
-require(
-    [
-        'MVVMDemo2',
-        'jquery'
-    ],
+require(['MVVMDemo2','jquery'],
     (MVVMDemo2, $) => {
         'use strict';
-
         $(document).ready(function () {
             var app = new MVVMDemo2();
             app.init($('body')[0]);
