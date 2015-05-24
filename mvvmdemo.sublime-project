@@ -3,7 +3,8 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": ["node_modules"]
+			"folder_exclude_patterns": ["node_modules",".tmp","web"],
+            "file_exclude_patterns": ["src/assets/scripts/*.js","src/tests/*.js"]
 		}
 	]
 }
