@@ -1,4 +1,6 @@
 /* global define, describe, it, beforeEach */
+///<reference path="../assets/scripts/_declare/mocha.d.ts"/>
+
 'use strict';
 define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'knockout'], function tests(require, exports, chai, MainViewModel) {
   chai.should();

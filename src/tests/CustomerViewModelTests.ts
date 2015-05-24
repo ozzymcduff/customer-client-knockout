@@ -1,4 +1,7 @@
 /* global define, describe, it, beforeEach */
+///<reference path="../assets/scripts/_declare/mocha.d.ts"/>
+///<reference path="../assets/scripts/viewModel/CustomerViewModel.ts"/>
+
 'use strict';
 define(['require', 'exports', 'chai', 'viewModel/CustomerViewModel'], function tests(require, exports, chai, CustomerViewModel) {
   chai.should();

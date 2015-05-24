@@ -127,7 +127,8 @@ module.exports = function(grunt) {
      */
     typescript: {
       main: {
-        src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/AppBootstrap.ts'],
+        src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/AppBootstrap.ts',
+          '<%= DEVELOPMENT_PATH %>' + 'tests/setup.ts', ],
         //dest: '<%= PRODUCTION_PATH %>',
         options: {
           target: 'es3', //or es5
@@ -216,7 +217,7 @@ module.exports = function(grunt) {
       src: {
         options: {
           port: 8000,
-          hostname: "0.0.0.0",
+          hostname: '0.0.0.0',
           bases: ['<%= DEVELOPMENT_PATH %>'],
           livereload: true
         }
@@ -224,7 +225,7 @@ module.exports = function(grunt) {
       web: {
         options: {
           port: 8001,
-          hostname: "0.0.0.1",
+          hostname: '0.0.0.1',
           bases: ['<%= PRODUCTION_PATH %>'],
           livereload: true
         }
@@ -295,6 +296,7 @@ module.exports = function(grunt) {
         files: [
           '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/**/*.ts',
           '<%= DEVELOPMENT_PATH %>' + 'tests/**/*.js',
+          '<%= DEVELOPMENT_PATH %>' + 'tests/**/*.ts',
           '<%= DEVELOPMENT_PATH %>' + 'config.html',
           '<%= DEVELOPMENT_PATH %>' + 'assets/templates/**/*.html'
         ],
