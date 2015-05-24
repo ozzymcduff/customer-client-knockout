@@ -1,6 +1,7 @@
 ///<reference path="CustomerViewModelTests.ts"/>
 ///<reference path="MainViewModelTests.ts"/>
 ///<reference path="DataServiceTests.ts"/>
+///<reference path="../assets/scripts/MVVMDemo2.ts"/>
 'use strict';
 require.config({
   paths: {

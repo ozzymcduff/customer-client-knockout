@@ -85,7 +85,7 @@ module.exports = function(grunt) {
           }, {
             expand: true,
             cwd: '<%= DEVELOPMENT_PATH %>',
-            src: 'assets/vendor/require/require.js',
+            src: 'assets/vendor/**/*.js',
             dest: '<%= PRODUCTION_PATH %>'
           },
           // Copy the media folder from development to production
@@ -127,17 +127,19 @@ module.exports = function(grunt) {
      */
     typescript: {
       main: {
-        src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/AppBootstrap.ts',
-          '<%= DEVELOPMENT_PATH %>' + 'tests/setup.ts', ],
-        //dest: '<%= PRODUCTION_PATH %>',
+        src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/AppBootstrap.ts'],
         options: {
           target: 'es3', //or es5
           module: 'AMD',
           basePath: '',
-          sourcemap: false,
-          declaration: false,
-          nolib: false,
-          comments: false
+        }
+      },
+      test: {
+        src: ['<%= DEVELOPMENT_PATH %>' + 'tests/setup.ts', ],
+        options: {
+          target: 'es3', //or es5
+          module: 'AMD',
+          basePath: '',
         }
       }
     },
@@ -189,24 +191,6 @@ module.exports = function(grunt) {
         },
         src: ['assets/data/**/*.json', 'assets/media/images/**/*.jpg', 'assets/media/images/**/*.png', 'assets/scripts/**/*.js', 'assets/styles/**/*.css'],
         dest: '<%= PRODUCTION_PATH %>' + 'offline.appcache'
-      }
-    },
-    /**
-     * YUIDoc plugin that will generate documentation from our YUI comments.
-     */
-    yuidoc: {
-      compile: {
-        name: '<%= pkg.name %>',
-        description: '<%= pkg.description %>',
-        version: '<%= pkg.appVersion %>',
-        url: '<%= pkg.homepage %>',
-        options: {
-          paths: '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/',
-          outdir: '<%= BASE_PATH %>docs',
-          themedir: '',
-          extension: '.ts', // Default '.js' <comma-separated list of file extensions>
-          exclude: ''
-        }
       }
     },
     /**
@@ -295,7 +279,6 @@ module.exports = function(grunt) {
         },
         files: [
           '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/**/*.ts',
-          '<%= DEVELOPMENT_PATH %>' + 'tests/**/*.js',
           '<%= DEVELOPMENT_PATH %>' + 'tests/**/*.ts',
           '<%= DEVELOPMENT_PATH %>' + 'config.html',
           '<%= DEVELOPMENT_PATH %>' + 'assets/templates/**/*.html'
@@ -309,7 +292,6 @@ module.exports = function(grunt) {
    *
    * grunt        (Will build and run your development code/server)
    * grunt web    (Will build and run your production code/server)
-   * grunt doc    (Will generate the YUI documentation from the code comments)
    * grunt build  (Will build the production code but will not start a local server.)
    */
   grunt.registerTask('default', ['server']);
@@ -317,5 +299,4 @@ module.exports = function(grunt) {
   grunt.registerTask('src', ['env:src', 'preprocess:src', 'typescript']);
   grunt.registerTask('web', ['build', 'open:web', 'express:web', 'express-keepalive']);
   grunt.registerTask('build', ['env:web', 'preprocess', 'typescript', 'clean', 'requirejs', 'copy', 'useminPrepare', 'concat', 'cssmin', 'usemin', 'usebanner', 'htmlmin', 'manifest']);
-  grunt.registerTask('doc', ['yuidoc']);
 };
