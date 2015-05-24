@@ -1,9 +1,12 @@
 /// <reference path="../_declare/require.d.ts" />
+/// <reference path="../_declare/bluebird.d.ts" />
 /// <reference path="CustomerViewModel.ts"/>
 /// <amd-dependency path="viewModel/CustomerViewModel" />
+/// <amd-dependency path="bluebird" />
 
 import ko = require("knockout");
-var CustomerViewModel = require("viewModel/CustomerViewModel");
+import Promise = require("bluebird");
+import CustomerViewModel = require("viewModel/CustomerViewModel");
 
 function MainViewModel(service){
     var self = this;
@@ -31,33 +34,40 @@ function MainViewModel(service){
         }
     });
 
-    this.saveCustomerCommand = function(customer){
+    this.saveCustomerCommand = function(customer) : Promise<Boolean>{
         if (!isBusy() && customer.isDirty){
             isBusy(true);
 
-            return service.saveCustomer(customer, function (result){ 
+            return service.saveCustomer(customer).then(function (result){ 
                 customer.isDirty = false;
-            }).complete(function() {
+                isBusy(false);
+                return result;
+            }).catch(function() {
                 isBusy(false);
             });
+        }else{
+            console.log('busy');
+
+            return Promise.resolve(false);
         }
-        return null;
     };
 
-    this.refreshCommand = function(){
+    this.refreshCommand = function() : Promise<Array<any>>{ 
         if (isBusy() ){
-            return null;
+            console.log('busy');
+            return Promise.resolve(customers());
         }
         isBusy(true);
-        return service.getCustomers(function (data) {
+        return service.getCustomers().then(function (data) {
+            isBusy(false);
             customers(data.map(function(model) {
-                return new CustomerViewModel(model, self.saveCustomerCommand);
+                return new CustomerViewModel(model);
             }));
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+            return customers();
+        }).catch(function(jqXHR, textStatus, errorThrown) {
+            isBusy(false);
             // Display error, normally this would be done through a property
             alert(errorThrown);
-        }).complete(function(){
-            isBusy(false);
         });
     };
 

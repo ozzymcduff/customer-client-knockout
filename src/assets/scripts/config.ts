@@ -1,21 +1,7 @@
-declare var requirejs: Require;
-interface moduleStatic{
-    exports:Object
-}
-declare var module: moduleStatic;
-
-if (typeof module !== 'undefined' && module.exports) {
-  requirejs = require('requirejs');
-  requirejs.config({
-    nodeRequire: require
-  });
-}else{
-    requirejs = require;
-}
 /**
  * Application configuration declaration.
  */
-requirejs.config({
+require.config({
 
     baseUrl: 'assets/scripts/',
 
@@ -26,6 +12,7 @@ requirejs.config({
         knockout: '../vendor/knockout/knockout-3.3.0',
         template: '../vendor/knockout-require-templates/template',
         stringTemplateEngine: '../vendor/knockout-require-templates/stringTemplateEngine',
+        bluebird: '../vendor/bluebird/bluebird.min',
 
         //shortcut paths
         templates: '../templates',

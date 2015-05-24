@@ -10,7 +10,6 @@
   },
   "developedBy": "wallymathieu",
   "devDependencies": {
-    "chai": "^2.3.0",
     "grunt": "^0.4.5",
     "grunt-banner": "^0.4.0",
     "grunt-contrib-clean": "^0.6.0",
@@ -31,12 +30,8 @@
     "grunt-typescript": "^0.6.2",
     "grunt-usemin": "^3.0.0",
     "matchdep": "^0.3.0",
-    "mocha": "^2.2.5"
-  },
-  "dependencies": {
-    "amdefine": "^0.1.0",
-    "jquery": "^2.1.4",
-    "knockout": "^3.3.0",
+    "mocha": "^2.2.5",
     "requirejs": "^2.1.17"
-  }
+  },
+  "dependencies": {}
 }

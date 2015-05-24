@@ -1,5 +1,4 @@
 ///<reference path='_declare/external.d.ts'/>
-///<reference path='_declare/jquery.d.ts'/>
 ///<reference path='_declare/lodash.d.ts'/>
 ///<reference path='_declare/knockout.d.ts'/>
 ///<reference path="model/DataService.ts"/>

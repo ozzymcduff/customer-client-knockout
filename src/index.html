@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" manifest="offline.appcache">
     <head>
         <!-- The current version of the application -->
         <meta name="version" content="0.1.0"/>
@@ -35,14 +35,7 @@
     </head>
     <body>
         <script type="text/javascript" src="assets/vendor/require/require.js"></script>
-        <script type="text/javascript" src="assets/scripts/config.js"></script>
-        <script>
-            /**
-             * Set route and kick off RequireJs, which begins loading of scripts
-             * starting from AppBootstrap.js.
-             */
-            require(['AppBootstrap']);
-        </script>
+        <script type="text/javascript" src="assets/scripts/app.min.js"></script>
         <div data-bind="template:'MainPage'"></div>
     </body>
 </html>
