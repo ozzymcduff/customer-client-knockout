@@ -46,15 +46,12 @@ function MainViewModel(service){
                 isBusy(false);
             });
         }else{
-            console.log('busy');
-
             return Promise.resolve(false);
         }
     };
 
     this.refreshCommand = function() : Promise<Array<any>>{ 
         if (isBusy() ){
-            console.log('busy');
             return Promise.resolve(customers());
         }
         isBusy(true);
@@ -64,7 +61,7 @@ function MainViewModel(service){
                 return new CustomerViewModel(model);
             }));
             return customers();
-        }).catch(function(jqXHR, textStatus, errorThrown) {
+        }).catch(function(errorThrown) {
             isBusy(false);
             // Display error, normally this would be done through a property
             alert(errorThrown);

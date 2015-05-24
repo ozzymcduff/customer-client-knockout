@@ -13,13 +13,10 @@ require.config({
 });
 require(['require', 'exports', 'MVVMDemo2', 'mocha'], function startMocha(require, exports) {
   var mocha = require('mocha');
-  //if ('setup' in mocha) {
   mocha.setup('bdd');
-  //}
-  require(['tests/CustomerViewModelTests', 'tests/MainViewModelTests'], function() {
+  require(['tests/CustomerViewModelTests', 'tests/MainViewModelTests', 'tests/DataServiceTests'], function() {
     mocha.checkLeaks();
     mocha.globals([]);
     mocha.run();
-    console.log('Q');
   });
 });

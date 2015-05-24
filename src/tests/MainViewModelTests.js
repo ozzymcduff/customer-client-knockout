@@ -1,18 +1,22 @@
 /* global define, describe, it, beforeEach */
 'use strict';
-define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'model/DataService', 'bluebird', 'knockout'], function tests(require, exports, chai, MainViewModel) {
+define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'knockout'], function tests(require, exports, chai, MainViewModel) {
   chai.should();
   var $ = require('jquery');
   var ko = require('knockout');
-  var DataService = require('model/DataService');
   var Promise = require('bluebird');
   describe('load data', function() {
     var mvm;
     var service;
     beforeEach(function() {
-      service = new DataService({
-        getAllCustomers: 'tests/GetAllCustomers.xml'
-      });
+      service = {
+        getCustomers: function() {
+          return Promise.resolve([{
+            firstName: 'Oskar',
+            lastName: 'Gewalli'
+          }]);
+        }
+      };
       mvm = new MainViewModel(service);
     });
     describe('isBusy', function() {
@@ -47,7 +51,9 @@ define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'model/DataServ
         savedCustomers: [],
         saveCustomer: function(customer) {
           service.savedCustomers.push(customer);
-          return Promise.resolve(true);
+          return Promise.resolve({
+            data: '<something>'
+          });
         }
       };
       mvm = new MainViewModel(service);
