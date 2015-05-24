@@ -3,7 +3,7 @@
 
 'use strict';
 define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'knockout'], function tests(require, exports, chai, MainViewModel) {
-  chai.should();
+  var expect = chai.expect;
   var $ = require('jquery');
   var ko = require('knockout');
   var Promise = require('bluebird');
@@ -23,16 +23,16 @@ define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'kn
     });
     describe('isBusy', function() {
       it('should not be isBusy by default', function() {
-        mvm.isBusy.should.equal(false);
+        expect(mvm.isBusy).to.equal(false);
       });
     });
     describe('refreshCommand', function() {
       it('should be able to parse customer', function(done) {
         mvm.refreshCommand().then(function(customers) {
-          customers.length.should.equal(1);
+          expect(customers.length).to.equal(1);
           var customer = customers[0];
-          customer.firstName.should.equal('Oskar');
-          customer.lastName.should.equal('Gewalli');
+          expect(customer.firstName).to.equal('Oskar');
+          expect(customer.lastName).to.equal('Gewalli');
           done();
         });
       });
@@ -68,15 +68,15 @@ define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'kn
           return mvm.isBusy;
         }).subscribe(function(isBusy) {
           if (!isBusy) {
-            mvm.isBusy.should.equal(false);
-            customer.isDirty.should.equal(false);
-            service.savedCustomers.length.should.equal(1);
-            service.savedCustomers[0].should.equal(customer);
+            expect(mvm.isBusy).to.equal(false);
+            expect(customer.isDirty).to.equal(false);
+            expect(service.savedCustomers.length).to.equal(1);
+            expect(service.savedCustomers[0]).to.equal(customer);
             done();
           }
         });
         customer.firstName = 'Jan';
-        customer.isDirty.should.equal(true);
+        expect(customer.isDirty).to.equal(true);
       });
     });
   });

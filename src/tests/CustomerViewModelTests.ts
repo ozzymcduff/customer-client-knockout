@@ -4,7 +4,7 @@
 
 'use strict';
 define(['require', 'exports', 'chai', 'viewModel/CustomerViewModel'], function tests(require, exports, chai, CustomerViewModel) {
-  chai.should();
+  var expect = chai.expect;
   describe('CustomerViewModel', function() {
     var json, cm;
     beforeEach(function() {
@@ -16,32 +16,32 @@ define(['require', 'exports', 'chai', 'viewModel/CustomerViewModel'], function t
     });
     describe('firstName', function() {
       it('should return json firstname', function() {
-        cm.firstName.should.equal(json.firstName);
+        expect(cm.firstName).to.equal(json.firstName);
       });
       it('should update json firstname', function() {
         var newName = 'Allan';
         cm.firstName = newName;
-        json.firstName.should.equal(newName);
+        expect(json.firstName).to.equal(newName);
       });
     });
     describe('lastName', function() {
       it('should return json lastName', function() {
-        cm.lastName.should.equal(json.lastName);
+        expect(cm.lastName).to.equal(json.lastName);
       });
       it('should update json firstname', function() {
         var newName = 'Lindqvist';
         cm.lastName = newName;
-        json.lastName.should.equal(newName);
+        expect(json.lastName).to.equal(newName);
       });
     });
     describe('isDirty', function() {
       it('should not be dirty by default', function() {
-        cm.isDirty.should.equal(false);
+        expect(cm.isDirty).to.equal(false);
       });
       it('should set isDirty after an update', function() {
         var newName = 'Lindqvist';
         cm.lastName = newName;
-        cm.isDirty.should.equal(true);
+        expect(cm.isDirty).to.equal(true);
       });
     });
   });

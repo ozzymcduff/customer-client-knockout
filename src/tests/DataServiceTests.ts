@@ -17,7 +17,6 @@ function xmlToString(xmlData) {
   return xmlString;
 }
 define(['require', 'exports', 'chai', 'model/DataService', 'jquery'], function tests(require, exports, chai, DataService) {
-  chai.should();
   var expect = chai.expect;
   var $ = require('jquery');
   describe('DataService', function() {
