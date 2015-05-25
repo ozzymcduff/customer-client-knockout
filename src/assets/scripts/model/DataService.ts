@@ -19,7 +19,7 @@ function DataService(endpoint, ajax){
         return _.map($(data).find('Customer'), function (xmlCustomer){
             return _.reduce($(xmlCustomer).children(), function(memo, next){
                 var n = $(next);
-                memo[firstLetterToLowerCase(n.prop('tagName'))] = n.text();
+                memo[firstLetterToLowerCase(n.prop('tagName'))] = n.attr('i:nil') === 'true'? null : n.text();
                 return memo;
             },{});
         });
@@ -30,7 +30,7 @@ function DataService(endpoint, ajax){
         return _.reduce(properties, function(memo,property){
             var propertyElement = doc.createElement(firstLetterToUpperCase(property));
             var value = data[property];
-            if (value){
+            if (value !== null){
                 propertyElement.appendChild(doc.createTextNode(value));
             }else{
                 propertyElement.setAttribute('i:nil','true');
