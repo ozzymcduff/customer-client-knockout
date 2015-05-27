@@ -1,24 +1,13 @@
 /* global define, describe, it, before */
 ///<reference path="../assets/scripts/_declare/mocha.d.ts"/>
 ///<reference path="../assets/scripts/_declare/chai.d.ts"/>
+///<reference path="../assets/scripts/infrastructure/xml.ts"/>
 
 'use strict';
-
-function xmlToString(xmlData) {
-  var xmlString;
-  //IE
-  if ('ActiveXObject' in window && window['ActiveXObject']) {
-    xmlString = xmlData.xml;
-  }
-  // code for Mozilla, Firefox, Opera, etc.
-  else {
-    xmlString = (new XMLSerializer()).serializeToString(xmlData);
-  }
-  return xmlString;
-}
-define(['require', 'exports', 'chai', 'model/DataService', 'jquery'], function tests(require, exports, chai, DataService) {
+define(['require', 'exports', 'chai', 'model/DataService', 'jquery', 'infrastructure/xml'], function tests(require, exports, chai, DataService) {
   var expect = chai.expect;
   var $ = require('jquery');
+  var xml = require('infrastructure/xml');
   describe('DataService', function() {
     describe('getCustomers', function() {
       var service;
@@ -73,7 +62,7 @@ define(['require', 'exports', 'chai', 'model/DataService', 'jquery'], function t
         });
         var expectedData = '<Customer><AccountNumber>0</AccountNumber><AddressCity i:nil="true"/><AddressCountry i:nil="true"/><AddressStreet i:nil="true"/><FirstName>Oskar</FirstName><Gender>Male</Gender><LastName>Gewalli</LastName><PictureUri i:nil="true"/></Customer>';
         expect(sent.length).to.equal(1);
-        expect(xmlToString(sent[0].data)).to.equal(expectedData);
+        expect(xml.toString(sent[0].data)).to.equal(expectedData);
         done();
       });
     });

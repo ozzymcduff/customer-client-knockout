@@ -2,10 +2,14 @@
 /// <reference path="../_declare/lodash.d.ts" />
 /// <reference path="../_declare/jquery.d.ts" />
 /// <reference path="../_declare/bluebird.d.ts" />
+/// <reference path="../infrastructure/xml.ts" />
 /// <amd-dependency path="lodash" />
 /// <amd-dependency path="bluebird" />
+/// <amd-dependency path="infrastructure/xml" />
+
 import $ = require("jquery");
 var _ = require('lodash');
+var xml = require('infrastructure/xml');
 var Promise = require('bluebird');
   
 function DataService(endpoint, ajax){
@@ -50,7 +54,7 @@ function DataService(endpoint, ajax){
         // in order to subscribe to failure, just add .catch(function ...) to the returned promise
     };
     this.saveCustomer = function (model) {
-        var serialized = toXmlCustomer(model);
+        var serialized = xml.toString( toXmlCustomer(model));
         return Promise.resolve(ajax.send({
              dataType: "xml",
              url:endpoint.saveCustomer, 
