@@ -1,10 +1,9 @@
 /* global define, describe, it, beforeEach */
-///<reference path="../assets/scripts/_declare/mocha.d.ts"/>
+///<reference path="../assets/scripts/_declare/jasmine.d.ts"/>
 ///<reference path="../assets/scripts/viewModel/CustomerViewModel.ts"/>
 
 'use strict';
-define(['require', 'exports', 'chai', 'viewModel/CustomerViewModel'], function tests(require, exports, chai, CustomerViewModel) {
-  var expect = chai.expect;
+define(['require', 'exports', 'viewModel/CustomerViewModel'], function tests(require, exports, CustomerViewModel) {
   describe('CustomerViewModel', function() {
     var json, cm;
     beforeEach(function() {
@@ -16,32 +15,32 @@ define(['require', 'exports', 'chai', 'viewModel/CustomerViewModel'], function t
     });
     describe('firstName', function() {
       it('should return json firstname', function() {
-        expect(cm.firstName).to.equal(json.firstName);
+        expect(cm.firstName).toEqual(json.firstName);
       });
       it('should update json firstname', function() {
         var newName = 'Allan';
         cm.firstName = newName;
-        expect(json.firstName).to.equal(newName);
+        expect(json.firstName).toEqual(newName);
       });
     });
     describe('lastName', function() {
       it('should return json lastName', function() {
-        expect(cm.lastName).to.equal(json.lastName);
+        expect(cm.lastName).toEqual(json.lastName);
       });
       it('should update json firstname', function() {
         var newName = 'Lindqvist';
         cm.lastName = newName;
-        expect(json.lastName).to.equal(newName);
+        expect(json.lastName).toEqual(newName);
       });
     });
     describe('isDirty', function() {
       it('should not be dirty by default', function() {
-        expect(cm.isDirty).to.equal(false);
+        expect(cm.isDirty).toEqual(false);
       });
       it('should set isDirty after an update', function() {
         var newName = 'Lindqvist';
         cm.lastName = newName;
-        expect(cm.isDirty).to.equal(true);
+        expect(cm.isDirty).toEqual(true);
       });
     });
   });

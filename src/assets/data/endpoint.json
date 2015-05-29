@@ -1,4 +1,4 @@
 {
-  "getAllCustomers": "http://customerservice.azurewebsites.net/CustomerService.svc/GetAllCustomers",
-  "saveCustomer": "http://customerservice.azurewebsites.net/CustomerService.svc/SaveCustomer"
+  "getAllCustomers": "/CustomerService.svc/GetAllCustomers",
+  "saveCustomer": "/CustomerService.svc/SaveCustomer"
 }

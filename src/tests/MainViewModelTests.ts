@@ -1,9 +1,8 @@
 /* global define, describe, it, beforeEach */
-///<reference path="../assets/scripts/_declare/mocha.d.ts"/>
+///<reference path="../assets/scripts/_declare/jasmine.d.ts"/>
 
 'use strict';
-define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'knockout'], function tests(require, exports, chai, MainViewModel) {
-  var expect = chai.expect;
+define(['require', 'exports', 'viewModel/MainViewModel', 'bluebird', 'knockout'], function tests(require, exports, MainViewModel) {
   var $ = require('jquery');
   var ko = require('knockout');
   var Promise = require('bluebird');
@@ -23,16 +22,16 @@ define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'kn
     });
     describe('isBusy', function() {
       it('should not be isBusy by default', function() {
-        expect(mvm.isBusy).to.equal(false);
+        expect(mvm.isBusy).toEqual(false);
       });
     });
     describe('refreshCommand', function() {
       it('should be able to parse customer', function(done) {
         mvm.refreshCommand().then(function(customers) {
-          expect(customers.length).to.equal(1);
+          expect(customers.length).toEqual(1);
           var customer = customers[0];
-          expect(customer.firstName).to.equal('Oskar');
-          expect(customer.lastName).to.equal('Gewalli');
+          expect(customer.firstName).toEqual('Oskar');
+          expect(customer.lastName).toEqual('Gewalli');
           done();
         });
       });
@@ -68,15 +67,15 @@ define(['require', 'exports', 'chai', 'viewModel/MainViewModel', 'bluebird', 'kn
           return mvm.isBusy;
         }).subscribe(function(isBusy) {
           if (!isBusy) {
-            expect(mvm.isBusy).to.equal(false);
-            expect(customer.isDirty).to.equal(false);
-            expect(service.savedCustomers.length).to.equal(1);
-            expect(service.savedCustomers[0]).to.equal(customer);
+            expect(mvm.isBusy).toEqual(false);
+            expect(customer.isDirty).toEqual(false);
+            expect(service.savedCustomers.length).toEqual(1);
+            expect(service.savedCustomers[0]).toEqual(customer);
             done();
           }
         });
         customer.firstName = 'Jan';
-        expect(customer.isDirty).to.equal(true);
+        expect(customer.isDirty).toEqual(true);
       });
     });
   });

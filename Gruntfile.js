@@ -134,8 +134,8 @@ module.exports = function(grunt) {
           basePath: '',
         }
       },
-      test: {
-        src: ['<%= DEVELOPMENT_PATH %>' + 'tests/setup.ts', ],
+      jasmine: {
+        src: ['<%= DEVELOPMENT_PATH %>' + 'tests/runJasmine.ts', ],
         options: {
           target: 'es3', //or es5
           module: 'AMD',
