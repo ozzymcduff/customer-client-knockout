@@ -85,14 +85,14 @@ module.exports = function(grunt) {
           }, {
             expand: true,
             cwd: '<%= DEVELOPMENT_PATH %>',
-            src: 'assets/vendor/**/*.js',
+            src: 'vendor/**/*.js',
             dest: '<%= PRODUCTION_PATH %>'
           },
           // Copy the media folder from development to production
           {
             expand: true,
             cwd: '<%= DEVELOPMENT_PATH %>',
-            src: ['assets/media/**'],
+            src: ['media/**'],
             dest: '<%= PRODUCTION_PATH %>'
           },
           // Copy the index.html file from development to production
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
           linebreak: true
         },
         files: {
-          src: ['<%= PRODUCTION_PATH %>' + 'assets/scripts/app.min.js', '<%= PRODUCTION_PATH %>' + 'assets/styles/app.min.css']
+          src: ['<%= PRODUCTION_PATH %>' + 'scripts/app.min.js', '<%= PRODUCTION_PATH %>' + 'styles/app.min.css']
         }
       }
     },
@@ -127,19 +127,17 @@ module.exports = function(grunt) {
      */
     typescript: {
       main: {
-        src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/AppBootstrap.ts'],
+        src: ['<%= DEVELOPMENT_PATH %>' + 'scripts/AppBootstrap.ts'],
         options: {
-          target: 'es3', //or es5
+          target: 'es5',
           module: 'AMD',
-          basePath: '',
         }
       },
       jasmine: {
-        src: ['<%= DEVELOPMENT_PATH %>' + 'tests/runJasmine.ts', ],
+        src: ['<%= DEVELOPMENT_PATH %>' + 'scripts/runJasmine.ts'],
         options: {
-          target: 'es3', //or es5
+          target: 'es5',
           module: 'AMD',
-          basePath: '',
         }
       }
     },
@@ -183,13 +181,13 @@ module.exports = function(grunt) {
       generate: {
         options: {
           basePath: '<%= PRODUCTION_PATH %>',
-          exclude: ['assets/media/images/moblie-icons/icon-144x144.png', 'assets/media/images/moblie-icons/icon-100x100.png', 'assets/media/images/moblie-icons/icon-29x29.png', 'assets/media/images/moblie-icons/icon-50x50.png', 'assets/media/images/moblie-icons/icon-58x58.png', 'assets/media/images/moblie-icons/icon-72x72.png'],
+          exclude: ['media/images/moblie-icons/icon-144x144.png', 'media/images/moblie-icons/icon-100x100.png', 'media/images/moblie-icons/icon-29x29.png', 'media/images/moblie-icons/icon-50x50.png', 'media/images/moblie-icons/icon-58x58.png', 'media/images/moblie-icons/icon-72x72.png'],
           preferOnline: false,
           verbose: true,
           timestamp: true,
           master: []
         },
-        src: ['assets/data/**/*.json', 'assets/media/images/**/*.jpg', 'assets/media/images/**/*.png', 'assets/scripts/**/*.js', 'assets/styles/**/*.css'],
+        src: ['data/**/*.json', 'media/images/**/*.jpg', 'media/images/**/*.png', 'scripts/**/*.js', 'styles/**/*.css'],
         dest: '<%= PRODUCTION_PATH %>' + 'offline.appcache'
       }
     },
@@ -235,10 +233,10 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          baseUrl: '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/', // Path of source scripts, relative to this build file
-          mainConfigFile: '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/config.js', // Path of shared configuration file, relative to this build file
+          baseUrl: '<%= DEVELOPMENT_PATH %>' + 'scripts/', // Path of source scripts, relative to this build file
+          mainConfigFile: '<%= DEVELOPMENT_PATH %>' + 'scripts/config.js', // Path of shared configuration file, relative to this build file
           name: 'AppBootstrap', // Name of input script (.js extension inferred)
-          out: '<%= PRODUCTION_PATH %>' + 'assets/scripts/app.min.js', // Path of built script output
+          out: '<%= PRODUCTION_PATH %>' + 'scripts/app.min.js', // Path of built script output
           fileExclusionRegExp: /.svn/, // Ignore all files matching this pattern
           useStrict: true,
           preserveLicenseComments: false,
@@ -271,17 +269,16 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         },
-        files: ['<%= DEVELOPMENT_PATH %>' + 'assets/styles/**/*.css', ]
+        files: ['<%= DEVELOPMENT_PATH %>' + 'styles/**/*.css', ]
       },
       src: {
         options: {
           livereload: true
         },
         files: [
-          '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/**/*.ts',
-          '<%= DEVELOPMENT_PATH %>' + 'tests/**/*.ts',
+          '<%= DEVELOPMENT_PATH %>' + 'scripts/**/*.ts',
           '<%= DEVELOPMENT_PATH %>' + 'config.html',
-          '<%= DEVELOPMENT_PATH %>' + 'assets/templates/**/*.html'
+          '<%= DEVELOPMENT_PATH %>' + 'templates/**/*.html'
         ],
         tasks: ['src']
       }

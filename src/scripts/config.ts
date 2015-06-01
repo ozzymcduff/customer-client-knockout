@@ -3,7 +3,7 @@
  */
 require.config({
 
-    baseUrl: 'assets/scripts/',
+    baseUrl: 'scripts/',
 
     paths: {
         //main libraries

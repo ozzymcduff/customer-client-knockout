@@ -6,7 +6,7 @@
 /// <amd-dependency path="lodash" />
 /// <amd-dependency path="bluebird" />
 /// <amd-dependency path="infrastructure/xml" />
-
+'use strict';
 import $ = require("jquery");
 var _ = require('lodash');
 var xml = require('infrastructure/xml');
@@ -44,7 +44,7 @@ function DataService(endpoint, ajax){
         },doc.createElement("Customer"));
     }
 
-    this.getCustomers = function() : Promise<Array<Object>>{
+    this.getCustomers = function(){
         return Promise.resolve(ajax.send({
             url:endpoint.getAllCustomers,
             dataType: "xml",

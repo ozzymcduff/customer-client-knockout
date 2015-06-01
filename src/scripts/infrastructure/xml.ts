@@ -1,4 +1,5 @@
 /// <reference path="../_declare/require.d.ts" />
+'use strict';
 import _ = require("lodash");
 
 function xmlToString(xmlData) {
