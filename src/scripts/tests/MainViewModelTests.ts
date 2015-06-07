@@ -1,4 +1,5 @@
 /* global define, describe, it, beforeEach */
+/// <reference path="../_declare/jasmine.d.ts" />
 /// <reference path="../_declare/bluebird.d.ts" />
 /// <reference path="../_declare/jquery.d.ts" />
 /// <reference path="../_declare/knockout.d.ts" />
