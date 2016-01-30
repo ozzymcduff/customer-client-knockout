@@ -7,21 +7,21 @@ require.config({
 
     paths: {
         //main libraries
-        jquery: '../vendor/jquery/jquery-1.9.1',
-        lodash: '../vendor/lodash/lodash',
-        knockout: '../vendor/knockout/knockout-3.3.0',
-        template: '../vendor/knockout-require-templates/template',
-        stringTemplateEngine: '../vendor/knockout-require-templates/stringTemplateEngine',
-        bluebird: '../vendor/bluebird/bluebird.min',
+        jquery: '../bower_components/jquery/dist/jquery.min',
+        lodash: '../bower_components/lodash/dist/lodash.min',
+        knockout: '../bower_components/knockout/dist/knockout',
+        template: '../bower_components/knockout-require-templates/template',
+        stringTemplateEngine: '../bower_components/knockout-require-templates/stringTemplateEngine',
+        bluebird: '../bower_components/bluebird/js/browser/bluebird.min',
 
         //shortcut paths
         templates: '../templates',
         data: '../data',
 
         //require plugins
-        text: '../vendor/require/text',
-        tpl: '../vendor/require/tpl',
-        json: '../vendor/require/json',
+        text: '../bower_components/requirejs-text/text',
+        tpl: '../bower_components/requirejs-tpl/tpl',
+        json: '../bower_components/requirejs-json/json',
     },
 
     shim: {
