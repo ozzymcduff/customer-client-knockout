@@ -1,27 +1,18 @@
-import ko = require("knockout");
-'use strict';
+/// <reference path="../../../_declare/require.d.ts" />
+/// <reference path="../../../_declare/bluebird.d.ts" />
+/// <amd-dependency path="knockout" />
+var ko = require("knockout");
 
-function CustomerViewModel(customer){
-    var isDirty = ko.observable(false);
-    var self = this;
-    Object.defineProperty(this, "isDirty", {
-        get: isDirty,
-        set: isDirty
-    });
-    //this.model = customer;
-    Object.defineProperty(this, "firstName", {
-        get: () => { return customer.firstName; },
-        set: (value) => {
-            isDirty(true);
-            customer.firstName = value;
-        }
-    });
-    Object.defineProperty(this, "lastName", {
-        get: () => { return customer.lastName; },
-        set: (value) => {
-            isDirty(true);
-            customer.lastName = value;
-        }
-    });
+export class CustomerViewModel {
+    private _isDirty = ko.observable(false);
+    private _customer;
+    constructor(customer) {
+        this._customer = customer;
+    }
+    get isDirty() { return this._isDirty(); }
+    set isDirty(value) { this._isDirty(value); }
+    get firstName() { return this._customer.firstName; }
+    set firstName(value) { this._customer.firstName = value; this.isDirty = true; }
+    get lastName() { return this._customer.lastName; }
+    set lastName(value) { this._customer.lastName = value; this.isDirty = true; }
 }
-export = CustomerViewModel;

@@ -1,71 +1,66 @@
-/// <reference path="../_declare/require.d.ts" />
-/// <reference path="../_declare/bluebird.d.ts" />
-/// <reference path="CustomerViewModel.d.ts"/>
+/// <reference path="../../../_declare/require.d.ts" />
+/// <reference path="../../../_declare/bluebird.d.ts" />
 /// <amd-dependency path="bluebird" />
-'use strict';
-import ko = require("knockout");
+/// <amd-dependency path="knockout" />
+
 import Promise = require("bluebird");
-import CustomerViewModel = require("viewModel/CustomerViewModel");
+import {CustomerViewModel} from "./CustomerViewModel"
+var ko = require("knockout");
 
-function MainViewModel(service) {
-    var self = this;
-    var customers = ko.observableArray([]);
-    var isBusy = ko.observable(false);
-    Object.defineProperty(this, "customers", {
-        get: () => { return customers(); }
-    });
-    Object.defineProperty(this, "isBusy", {
-        get: isBusy,
-        set: isBusy
-    });
-
-    function allDirtyCustomers() {
-        return customers().filter(function(customer) {
+export class MainViewModel {
+    private _customers = ko.observableArray([]);
+    private _isBusy = ko.observable(false);
+    private _service;
+    private _allDirtyCustomers() {
+        return this._customers().filter(function(customer) {
             return customer.isDirty;
         });
     }
-
-    var subscription = ko.computed(allDirtyCustomers).subscribe((customersToSave) => {
-        if (customersToSave.length > 0) {
-            customersToSave.forEach((customer) => {
-                self.saveCustomerCommand(customer);
-            });
+    constructor(service) {
+        this._service = service;
+        var subscription = ko.pureComputed(this._allDirtyCustomers, this).subscribe((customersToSave) => {
+            if (customersToSave.length > 0) {
+                customersToSave.forEach((customer) => {
+                    this.saveCustomerCommand(customer);
+                });
+            }
+        });
+    }
+    get customers(): Array<CustomerViewModel> { return this._customers(); }
+    get isBusy(): boolean { return this._isBusy(); }
+    refreshCommand(): Promise<Array<CustomerViewModel>> {
+        if (this._isBusy()) {
+            return Promise.resolve(this._customers());
         }
-    });
+        this._isBusy(true);
+        var promise = this._service.getCustomers().then((data) => {
+            this._isBusy(false);
+            this._customers(data.map((model) => {
+                return new CustomerViewModel(model);
+            }));
+            return this._customers();
+        });
+        promise.catch((errorThrown) => {
+            this._isBusy(false);
+            // Display error, normally this would be done through a property
+            alert(errorThrown);
+        });
+        return promise;
+    }
 
-    this.saveCustomerCommand = (customer) => {
-        if (!isBusy() && customer.isDirty) {
-            isBusy(true);
+    saveCustomerCommand(customer: CustomerViewModel) {
+        if (!this._isBusy() && customer.isDirty) {
+            this._isBusy(true);
 
-            return service.saveCustomer(customer).then((result) => {
+            return this._service.saveCustomer(customer).then((result) => {
                 customer.isDirty = false;
-                isBusy(false);
+                this._isBusy(false);
                 return result;
             }).catch(() => {
-                isBusy(false);
+                this._isBusy(false);
             });
         } else {
             return Promise.resolve(false);
         }
     };
-
-    this.refreshCommand = () => {
-        if (isBusy()) {
-            return Promise.resolve(customers());
-        }
-        isBusy(true);
-        return service.getCustomers().then((data) => {
-            isBusy(false);
-            customers(data.map((model) => {
-                return new CustomerViewModel(model);
-            }));
-            return customers();
-        }).catch((errorThrown) => {
-            isBusy(false);
-            // Display error, normally this would be done through a property
-            alert(errorThrown);
-        });
-    };
-
 }
-export = MainViewModel;

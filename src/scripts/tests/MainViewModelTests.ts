@@ -1,17 +1,15 @@
 /* global define, describe, it, beforeEach */
-/// <reference path="../_declare/jasmine.d.ts" />
-/// <reference path="../_declare/bluebird.d.ts" />
-/// <reference path="../_declare/jquery.d.ts" />
-/// <reference path="../_declare/knockout.d.ts" />
-/// <reference path="../viewModel/MainViewModel.d.ts" />
+/// <reference path="../../../_declare/jasmine.d.ts" />
+/// <reference path="../../../_declare/bluebird.d.ts" />
+/// <reference path="../../../_declare/jquery.d.ts" />
+/// <reference path="../../../_declare/knockout.d.ts" />
 /// <amd-dependency path="bluebird" />
 /// <amd-dependency path="jquery" />
-/// <amd-dependency path="viewModel/MainViewModel" />
 'use strict';
 import ko = require("knockout");
 import Promise = require('bluebird');
 import $ = require('jquery');
-import MainViewModel = require('viewModel/MainViewModel');
+import {MainViewModel} from "../viewModel/MainViewModel";
 
 describe('load data', function() {
   var mvm;

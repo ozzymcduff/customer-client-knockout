@@ -1,8 +1,7 @@
 /* global define, describe, it, beforeEach */
-///<reference path="../_declare/jasmine.d.ts"/>
-///<reference path="../viewModel/CustomerViewModel.d.ts"/>
+///<reference path="../../../_declare/jasmine.d.ts"/>
 'use strict';
-import CustomerViewModel = require("viewModel/CustomerViewModel");
+import {CustomerViewModel} from "../viewModel/CustomerViewModel";
 
 describe('CustomerViewModel', function() {
   var json, cm;

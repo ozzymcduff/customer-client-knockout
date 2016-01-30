@@ -1,16 +1,17 @@
-/// <reference path="_declare/require.d.ts" />
+/// <reference path="../../_declare/require.d.ts" />
 
-///<reference path='config.ts'/>
-///<reference path='MVVMDemo2.ts'/>
+/// <reference path='config.ts'/>
+/// <reference path='MVVMDemo2.ts'/>
 
+import {App} from "MVVMDemo2";
 /**
  * Main entry point for RequireJS
  */
-require(['MVVMDemo2','jquery'],
-    (MVVMDemo2, $) => {
+require(['jquery','lodash'],
+    ($) => {
         'use strict';
         $(document).ready(function () {
-            var app = new MVVMDemo2();
+            var app = new App();
             app.init($('body')[0]);
         });
     }

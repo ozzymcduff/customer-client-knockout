@@ -1,12 +1,9 @@
 /* global define, describe, it, before */
-///<reference path="../_declare/jasmine.d.ts"/>
-///<reference path="../infrastructure/xml.ts"/>
-/// <amd-dependency path="infrastructure/xml" />
-/// <amd-dependency path="model/DataService" />
+///<reference path="../../../_declare/jasmine.d.ts"/>
 /// <amd-dependency path="jquery" />
 'use strict';
-import DataService = require("model/DataService");
-import xml = require('infrastructure/xml');
+import {DataService} from '../model/DataService';
+import {Xml} from '../Infrastructure';
 import $ = require('jquery');
 
 describe('DataService', function() {
@@ -63,7 +60,7 @@ describe('DataService', function() {
       });
       var expectedData = '<Customer><AccountNumber>0</AccountNumber><AddressCity i:nil="true"/><AddressCountry i:nil="true"/><AddressStreet i:nil="true"/><FirstName>Oskar</FirstName><Gender>Male</Gender><LastName>Gewalli</LastName><PictureUri i:nil="true"/></Customer>';
       expect(sent.length).toEqual(1);
-      expect(xml.toString(sent[0].data)).toEqual(expectedData);
+      expect(Xml.toString(sent[0].data)).toEqual(expectedData);
       done();
     });
   });
