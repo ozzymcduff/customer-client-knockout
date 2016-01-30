@@ -7,7 +7,7 @@
 
 require.config({
   paths: {
-    'jasmine': '/vendor/jasmine/jasmine',
+    'jasmine': '/bower_components/jasmine-core/lib/jasmine-core',
     'tests': '/scripts/tests'
   }
 });
