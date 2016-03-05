@@ -9,7 +9,7 @@ module Demo.Infrastructure {
     }
     export class Ajax implements IAjax {
         send(settings: any) {
-            return Promise.resolve($.ajax(settings));
+            return Promise.cast($.ajax(settings));
         }
     }
 

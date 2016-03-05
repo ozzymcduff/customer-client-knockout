@@ -33,34 +33,32 @@ module Demo.ViewModel {
                 return Promise.resolve(this._customers());
             }
             this._isBusy(true);
-            var promise = this._service.getCustomers().then((data) => {
+            return this._service.getCustomers().then((data) => {
                 this._isBusy(false);
                 this._customers(data.map((model) => {
                     return new CustomerViewModel(model);
                 }));
                 return this._customers();
-            });
-            promise.catch((errorThrown) => {
+            }).catch((errorThrown) => {
                 this._isBusy(false);
                 // Display error, normally this would be done through a property
                 alert(`Could not refresh due to error: ${errorThrown}`);
+                return [];
             });
-            return promise;
         }
 
         saveCustomerCommand(customer: CustomerViewModel) : Promise<boolean> {
             if (!this._isBusy() && customer.isDirty) {
                 this._isBusy(true);
 
-                let promise = this._service.saveCustomer(customer).then((result: any) => {
+                return this._service.saveCustomer(customer).then((result: any) => {
                     customer.isDirty = false;
                     this._isBusy(false);
-                    return result;
-                });
-                promise.catch(() => {
+                    return true;
+                }).catch(() => {
                     this._isBusy(false);
+                    return false;
                 });
-                return promise;
             } else {
                 return Promise.resolve(false);
             }
