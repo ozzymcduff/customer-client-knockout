@@ -4,7 +4,7 @@
 /// <reference path="../_declare/knockout.d.ts" />
 /// <reference path="../app/viewModel/mainViewModel.ts" />
 'use strict';
-describe('load data', function() {
+describe('load data', ()=> {
   let ko = require("knockout");
   let Promise = require("bluebird");
 
@@ -22,18 +22,18 @@ describe('load data', function() {
           return Promise.fail('!');
       }
   }
-  beforeEach(function() {
+  beforeEach(()=> {
     service = new FakeDataService();
     mvm = new Demo.ViewModel.MainViewModel(service);
   });
-  describe('isBusy', function() {
-    it('should not be isBusy by default', function() {
+  describe('isBusy', ()=> {
+    it('should not be isBusy by default', ()=> {
       expect(mvm.isBusy).toEqual(false);
     });
   });
-  describe('refreshCommand', function() {
-    it('should be able to parse customer', function(done) {
-      mvm.refreshCommand().then(function(customers) {
+  describe('refreshCommand', ()=> {
+    it('should be able to parse customer', (done)=> {
+      mvm.refreshCommand().then((customers)=> {
         expect(customers.length).toEqual(1);
         var customer = customers[0];
         expect(customer.firstName).toEqual('Oskar');
@@ -69,7 +69,7 @@ describe('saveCustomerCommand', ()=> {
       }
   }
 
-  beforeEach(function() {
+  beforeEach(()=> {
     service = new FakeDataService();
     mvm = new Demo.ViewModel.MainViewModel(service);
     refreshed = mvm.refreshCommand();

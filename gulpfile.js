@@ -19,7 +19,7 @@ function host(){
 gulp.task('build.app', function () {
     return gulp.src('app/**/*.ts')
         .pipe(ts({
-            noImplicitAny: false,
+            noImplicitAny: true,
             target: 'ES5',
             module: 'umd',
             removeComments: true,
@@ -31,7 +31,7 @@ gulp.task('build.app', function () {
 gulp.task('build.tests', function () {
     return gulp.src('tests/**/*.ts')
         .pipe(ts({
-            noImplicitAny: false,
+            noImplicitAny: true,
             target: 'ES5',
             module: 'amd',
             removeComments: true,

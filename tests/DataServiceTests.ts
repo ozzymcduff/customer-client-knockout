@@ -3,17 +3,17 @@
 ///<reference path="../app/model/dataService.ts"/>
 ///<reference path="../app/infrastructure.ts"/>
 'use strict';
-describe('DataService', function() {
+describe('DataService', ()=> {
 
-    describe('getCustomers', function() {
+    describe('getCustomers', ()=> {
         let service: Demo.Model.DataService;
-        beforeEach(function() {
+        beforeEach(()=> {
             service = new Demo.Model.DataService({
                 getAllCustomers: '/scripts/tests/GetAllCustomers.xml'
             }, new Demo.Infrastructure.Ajax());
         });
-        it('should return parsed as json', function(done) {
-            service.getCustomers().then(function(data) {
+        it('should return parsed as json', (done)=> {
+            service.getCustomers().then((data)=> {
                 expect(data.length).toEqual(1);
                 var customerJson = data[0];
                 expect(customerJson).toEqual({
@@ -30,20 +30,20 @@ describe('DataService', function() {
             });
         });
     });
-    describe('saveCustomer', function() {
+    describe('saveCustomer', ()=> {
         let service: Demo.Model.DataService;
         let sent: Array<any> = [];
-        beforeEach(function() {
+        beforeEach(()=> {
             service = new Demo.Model.DataService({
                 saveCustomer: './SaveCustomer.xml'
             }, <Demo.Infrastructure.IAjax>{
-                    send: function(data) {
+                    send(data) {
                         sent.push(data);
-                        //return {};
+                        return Promise.resolve({});
                     }
                 });
         });
-        it('should send xml', function(done) {
+        it('should send xml', (done)=> {
             service.saveCustomer({
                 accountNumber: '0',
                 addressCity: null,

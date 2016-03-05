@@ -41,11 +41,11 @@
 define('AppBootstrap',["require", "exports", "jquery", "bluebird", "knockout", "lodash",
     "template!../templates/MainPage.html", "template!../templates/Customer.html", "json!data/endpoint.json"
     ], function (require, exports, $, Promise, ko, _) {
+    "use strict";
     window._ = _;
     window.$ = $;
     window.ko = ko;
     window.Promise = Promise;
-    "use strict";
     require(["app"],function(){
         /**
          * Main entry point for RequireJS
@@ -56,13 +56,13 @@ define('AppBootstrap',["require", "exports", "jquery", "bluebird", "knockout", "
         });
     });
 });
-        /**
-         * Set route and kick off RequireJs, which begins loading of scripts
-         * starting from AppBootstrap.js.
-         */
-        require(['AppBootstrap'], function(){
-            console.log('loaded app bootstrap');
-        });
+/**
+ * Set route and kick off RequireJs, which begins loading of scripts
+ * starting from AppBootstrap.js.
+ */
+require(['AppBootstrap'], function(){
+    console.log('loaded app bootstrap');
+});
 </script>
         <div data-bind="template:'MainPage'"></div>
     </body>
