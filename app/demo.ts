@@ -7,8 +7,6 @@
 ///<reference path='../_declare/knockout.d.ts'/>
 
 module Demo {
-    var _ = require("lodash");
-    var ko = require("knockout");
     var endpoint = require("json!data/endpoint.json");
 
     export class App{
@@ -18,7 +16,7 @@ module Demo {
             var svc = new Demo.Model.DataService(endpoint, ajax);
             this._mainVm = new Demo.ViewModel.MainViewModel(svc);
         }
-        init (node):void {
+        init (node:any):void {
             ko.applyBindings(this._mainVm, node);
             this._mainVm.refreshCommand();
         }

@@ -4,28 +4,28 @@
 /// <reference path="./customerViewModel.ts" />
 
 module Demo.ViewModel {
-    var ko = require("knockout");
-    var Promise = require("bluebird");
 
     export class MainViewModel {
         private _customers = ko.observableArray([]);
         private _isBusy = ko.observable(false);
-        private _service;
-        private _allDirtyCustomers() {
-            return this._customers().filter(function(customer) {
-                return customer.isDirty;
-            });
-        }
-        constructor(service) {
+        private _service: Model.IDataService;
+        constructor(service: Model.IDataService) {
             this._service = service;
-            var subscription = ko.pureComputed(this._allDirtyCustomers, this).subscribe((customersToSave) => {
-                if (customersToSave.length > 0) {
-                    customersToSave.forEach((customer) => {
-                        this.saveCustomerCommand(customer);
-                    });
-                }
-            });
+            var subscription = ko.pureComputed(this._allDirtyCustomers, this)
+                .subscribe(this._saveCustomers.bind(this));
         }
+        private _allDirtyCustomers() {
+            return this.customers.filter((customer) => customer.isDirty);
+        }
+
+        private _saveCustomers(customersToSave: Array<CustomerViewModel>) {
+            if (customersToSave.length > 0) {
+                customersToSave.forEach((customer) => {
+                    this.saveCustomerCommand(customer);
+                });
+            }
+        }
+
         get customers(): Array<CustomerViewModel> { return this._customers(); }
         get isBusy(): boolean { return this._isBusy(); }
         refreshCommand(): Promise<Array<CustomerViewModel>> {
@@ -48,17 +48,19 @@ module Demo.ViewModel {
             return promise;
         }
 
-        saveCustomerCommand(customer: CustomerViewModel) {
+        saveCustomerCommand(customer: CustomerViewModel) : Promise<boolean> {
             if (!this._isBusy() && customer.isDirty) {
                 this._isBusy(true);
 
-                return this._service.saveCustomer(customer).then((result) => {
+                let promise = this._service.saveCustomer(customer).then((result: any) => {
                     customer.isDirty = false;
                     this._isBusy(false);
                     return result;
-                }).catch(() => {
+                });
+                promise.catch(() => {
                     this._isBusy(false);
                 });
+                return promise;
             } else {
                 return Promise.resolve(false);
             }

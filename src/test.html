@@ -13,7 +13,12 @@
 <script type="text/javascript" src="/bower_components/requirejs/require.js"></script>
 <script type="text/javascript" src="/scripts/config.js"></script> 
 <script type="text/javascript" >
-  define('runJasmineRun',['require', 'lodash', 'jquery', 'knockout', 'bluebird'], function(require) {
+  define('runJasmineRun',['require', 'lodash', 'jquery', 'knockout', 'bluebird'
+    ], function(require, _, $, ko, Promise) {
+    window._ = _;
+    window.$ = $;
+    window.ko = ko;
+    window.Promise = Promise;
       console.log('loaded requirements');
       require(['tests/runJasmine'], function (){
         console.log('loaded specs!');

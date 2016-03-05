@@ -4,14 +4,13 @@
 ///<reference path="../app/infrastructure.ts"/>
 'use strict';
 describe('DataService', function() {
+
     describe('getCustomers', function() {
-        var service;
+        let service: Demo.Model.DataService;
         beforeEach(function() {
             service = new Demo.Model.DataService({
                 getAllCustomers: '/scripts/tests/GetAllCustomers.xml'
-            }, {
-                    send: $.ajax
-                });
+            }, new Demo.Infrastructure.Ajax());
         });
         it('should return parsed as json', function(done) {
             service.getCustomers().then(function(data) {
@@ -32,12 +31,12 @@ describe('DataService', function() {
         });
     });
     describe('saveCustomer', function() {
-        var service;
-        var sent = [];
+        let service: Demo.Model.DataService;
+        let sent: Array<any> = [];
         beforeEach(function() {
             service = new Demo.Model.DataService({
                 saveCustomer: './SaveCustomer.xml'
-            }, {
+            }, <Demo.Infrastructure.IAjax>{
                     send: function(data) {
                         sent.push(data);
                         //return {};

@@ -5,20 +5,25 @@
 /// <reference path="../app/viewModel/mainViewModel.ts" />
 'use strict';
 describe('load data', function() {
-  var ko = require("knockout");
-  var Promise = require("bluebird");
+  let ko = require("knockout");
+  let Promise = require("bluebird");
 
-  var mvm;
-  var service;
-  beforeEach(function() {
-    service = {
-      getCustomers: function() {
-        return Promise.resolve([{
-          firstName: 'Oskar',
-          lastName: 'Gewalli'
-        }]);
+  let mvm: Demo.ViewModel.MainViewModel;
+  let service: Demo.Model.IDataService;
+
+  class FakeDataService implements Demo.Model.IDataService {
+      getCustomers() {
+          return Promise.resolve([{
+              firstName: 'Oskar',
+              lastName: 'Gewalli'
+          }]);
       }
-    };
+      saveCustomer(c:any) {
+          return Promise.fail('!');
+      }
+  }
+  beforeEach(function() {
+    service = new FakeDataService();
     mvm = new Demo.ViewModel.MainViewModel(service);
   });
   describe('isBusy', function() {
@@ -39,38 +44,43 @@ describe('load data', function() {
   });
 });
 
-describe('saveCustomerCommand', function() {
-  var ko = require("knockout");
-  var Promise = require("bluebird");
+describe('saveCustomerCommand', ()=> {
+  let ko = require("knockout");
+  let Promise = require("bluebird");
 
-  var mvm;
-  var service;
-  var refreshed;
-  beforeEach(function() {
-    service = {
-      getCustomers: function() {
-        return Promise.resolve([{
-          firstName: 'Hugo',
-          lastName: 'Larssen'
-        }]);
-      },
-      savedCustomers: [],
-      saveCustomer: function(customer) {
-        service.savedCustomers.push(customer);
-        return Promise.resolve({
-          data: '<something>'
-        });
+  let mvm: Demo.ViewModel.MainViewModel;
+  let service: FakeDataService;
+  let refreshed: Promise<Array<Demo.ViewModel.CustomerViewModel>>;
+
+  class FakeDataService implements Demo.Model.IDataService {
+      public savedCustomers:Array<any> = [];
+
+      getCustomers() {
+          return Promise.resolve([{
+              firstName: 'Hugo',
+              lastName: 'Larssen'
+          }]);
       }
-    };
+      saveCustomer(customer: any) {
+          this.savedCustomers.push(customer);
+          return Promise.resolve({
+              data: '<something>'
+          });
+      }
+  }
+
+  beforeEach(function() {
+    service = new FakeDataService();
     mvm = new Demo.ViewModel.MainViewModel(service);
     refreshed = mvm.refreshCommand();
   });
-  it('should be able to save customer directly after editing the name', function(done) {
-    refreshed.then(function() {
+
+  it('should be able to save customer directly after editing the name', (done)=> {
+    refreshed.then(()=> {
       var customer = mvm.customers[0];
-      var subscription = ko.computed(function() {
+      var subscription = ko.computed(()=> {
         return mvm.isBusy;
-      }).subscribe(function(isBusy) {
+      }).subscribe((isBusy:boolean)=>{
         if (!isBusy) {
           expect(mvm.isBusy).toEqual(false);
           expect(customer.isDirty).toEqual(false);

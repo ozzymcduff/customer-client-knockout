@@ -3,7 +3,7 @@
 ///<reference path="../app/viewModel/customerViewModel.ts"/>
 'use strict';
 describe('CustomerViewModel', function() {
-    var json, cm;
+    let json: any, cm: Demo.ViewModel.CustomerViewModel;
     beforeEach(function() {
         json = {
             firstName: '<first name not set>',

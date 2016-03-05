@@ -1,12 +1,11 @@
 /// <reference path="../../_declare/require.d.ts" />
 /// <reference path="../../_declare/knockout.d.ts" />
 module Demo.ViewModel {
-    var ko = require("knockout");
 
     export class CustomerViewModel {
         private _isDirty = ko.observable(false);
-        private _customer;
-        constructor(customer) {
+        private _customer:any;
+        constructor(customer:any) {
             this._customer = customer;
         }
         get isDirty() { return this._isDirty(); }

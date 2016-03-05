@@ -3,24 +3,22 @@
 /// <reference path="../_declare/jquery.d.ts" />
 
 module Demo.Infrastructure {
-    var $ = require("jquery");
-    var Promise = require("bluebird");
 
     export interface IAjax {
-        send(settings: JQueryAjaxSettings): Promise<any>
+        send(settings: any): Promise<any>
     }
     export class Ajax implements IAjax {
-        send(settings) {
+        send(settings: any) {
             return Promise.resolve($.ajax(settings));
         }
     }
 
     export class Xml {
-        static toString(xmlData) {
+        static toString(xmlData:any) {
             if (_.isString(xmlData)) {
                 return xmlData;
             }
-            var xmlString;
+            var xmlString:string;
             //IE
             if ('ActiveXObject' in window && window['ActiveXObject']) {
                 xmlString = xmlData.xml;

@@ -6,31 +6,28 @@
 /// <reference path="../infrastructure.ts" />
 
 module Demo.Model {
-    var $ = require("jquery");
-    var _ = require("lodash");
-    var Promise = require("bluebird");
 
-    function firstLetterToLowerCase(name) {
+    function firstLetterToLowerCase(name:string) {
         return name[0].toLowerCase() + name.slice(1);
     }
-    function firstLetterToUpperCase(name) {
+    function firstLetterToUpperCase(name: string) {
         return name[0].toUpperCase() + name.slice(1);
     }
-    function parseXmlCustomers(data) {
-        return _.map($(data).find('Customer'), function(xmlCustomer) {
-            return _.reduce($(xmlCustomer).children(), function(memo, next) {
-                var n = $(next);
+    function parseXmlCustomers(data:any) {
+        return _.map($(data).find('Customer'), (xmlCustomer: any) => {
+            return _.reduce($(xmlCustomer).children(), (memo: any, next: any) => {
+                let n = $(next);
                 memo[firstLetterToLowerCase(n.prop('tagName'))] = n.attr('i:nil') === 'true' ? null : n.text();
                 return memo;
             }, {});
         });
     }
-    var doc = document.implementation.createDocument(null, null, null);
-    function toXmlCustomer(data) {
-        var properties = Object.getOwnPropertyNames(data);
+    let doc = document.implementation.createDocument(null, null, null);
+    function toXmlCustomer(data:any) {
+        let properties = Object.getOwnPropertyNames(data);
         return _.reduce(properties, function(memo:any, property:string) {
-            var propertyElement = doc.createElement(firstLetterToUpperCase(property));
-            var value = data[property];
+            let propertyElement = doc.createElement(firstLetterToUpperCase(property));
+            let value = data[property];
             if (value !== null) {
                 propertyElement.appendChild(doc.createTextNode(value));
             } else {
@@ -41,10 +38,15 @@ module Demo.Model {
         }, doc.createElement("Customer"));
     }
 
-    export class DataService {
-        private endpoint;
-        private ajax;
-        constructor(endpoint, ajax) {
+    export interface IDataService { 
+        getCustomers(): Promise<Array<any>>;
+        saveCustomer(model: any): Promise<any>;
+    }
+
+    export class DataService implements IDataService {
+        private endpoint: any;
+        private ajax: Infrastructure.IAjax;
+        constructor(endpoint:any, ajax:Infrastructure.IAjax) {
             this.endpoint = endpoint;
             this.ajax = ajax;
         }
@@ -52,13 +54,11 @@ module Demo.Model {
             return Promise.resolve(this.ajax.send({
                 url: this.endpoint.getAllCustomers,
                 dataType: "xml",
-            })).then(function(data) {
-                return parseXmlCustomers(data);
-            });
+            })).then(parseXmlCustomers);
             // in order to subscribe to failure, just add .catch(function ...) to the returned promise
         };
         saveCustomer(model: any) {
-            var serialized = Demo.Infrastructure.Xml.toString(toXmlCustomer(model));
+            let serialized = Demo.Infrastructure.Xml.toString(toXmlCustomer(model));
             return Promise.resolve(this.ajax.send({
                 dataType: "xml",
                 url: this.endpoint.saveCustomer,
