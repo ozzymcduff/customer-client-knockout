@@ -7,12 +7,21 @@
   <link rel="shortcut icon" type="image/png" href="vendor/jasmine/jasmine_favicon.png">
   <link rel="stylesheet" href="bower_components/jasmine-core/lib/jasmine-core/jasmine.css">
 
-  <script src="bower_components/jasmine-core/lib/jasmine-core/jasmine.js"></script>
-  <script src="bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
-  <script src="bower_components/jasmine-core/lib/jasmine-core/boot.js"></script>
-  <script type="text/javascript" src="bower_components/requirejs/require.js"></script>
-  <script type="text/javascript" src="scripts/config.js" ></script>
-  <script type="text/javascript" src="scripts/runJasmine.js" ></script>
+<script type="text/javascript" src="/bower_components/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+<script type="text/javascript" src="/bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+<script type="text/javascript" src="/bower_components/jasmine-core/lib/jasmine-core/boot.js"></script>
+<script type="text/javascript" src="/bower_components/requirejs/require.js"></script>
+<script type="text/javascript" src="/scripts/config.js"></script> 
+<script type="text/javascript" >
+  define('runJasmineRun',['require', 'lodash', 'jquery', 'knockout', 'bluebird'], function(require) {
+      console.log('loaded requirements');
+      require(['tests/runJasmine'], function (){
+        console.log('loaded specs!');
+        window.onload();// triggering onload in order to let jasmine know that there are specs
+      });
+  });
+  require(['runJasmineRun']);
+</script>
 
 </head>
 

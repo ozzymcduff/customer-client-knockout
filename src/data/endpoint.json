@@ -1,4 +1,4 @@
 {
-  "getAllCustomers": "/CustomerService.svc/GetAllCustomers",
+  "getAllCustomers": "/CustomerService.svc/GetAllCustomers.json",
   "saveCustomer": "/CustomerService.svc/SaveCustomer"
 }

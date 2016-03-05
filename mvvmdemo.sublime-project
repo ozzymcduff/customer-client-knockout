@@ -3,8 +3,8 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": ["node_modules",".tmp","web"],
-            "file_exclude_patterns": ["src/scripts/*.js","src/tests/*.js"]
+			"folder_exclude_patterns": ["node_modules",".tmp", "src/bower_components"],
+            "file_exclude_patterns": []
 		}
 	]
 }

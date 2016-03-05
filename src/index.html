@@ -35,14 +35,31 @@
     </head>
     <body>
         <script type="text/javascript" src="bower_components/requirejs/require.js"></script>
-        <script type="text/javascript" src="scripts/config.js"></script>
-        <script>
+        <script type="text/javascript" src="/scripts/config.js"></script>
+
+<script>
+define('AppBootstrap',["require", "exports", "jquery", "bluebird", "knockout", "lodash", "jquery", 
+    "template!../templates/MainPage.html", "template!../templates/Customer.html", "json!data/endpoint.json"], function (require, exports, $) {
+                "use strict";
+                require(["app"],function(){
+                    console.log(Demo)
+                    /**
+                     * Main entry point for RequireJS
+                     */
+                    $(document).ready(function () {
+                        var app = new Demo.App();
+                        app.init($('body')[0]);
+                    });
+                });
+            });
             /**
              * Set route and kick off RequireJs, which begins loading of scripts
              * starting from AppBootstrap.js.
              */
-            require(['AppBootstrap']);
-        </script>
+            require(['AppBootstrap'], function(){
+                console.log('loaded app bootstrap');
+            });
+</script>
         <div data-bind="template:'MainPage'"></div>
     </body>
 </html>

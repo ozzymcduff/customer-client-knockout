@@ -1,17 +1,13 @@
 /* global define, describe, it, beforeEach */
-/// <reference path="../../../_declare/jasmine.d.ts" />
-/// <reference path="../../../_declare/bluebird.d.ts" />
-/// <reference path="../../../_declare/jquery.d.ts" />
-/// <reference path="../../../_declare/knockout.d.ts" />
-/// <amd-dependency path="bluebird" />
-/// <amd-dependency path="jquery" />
+/// <reference path="../_declare/jasmine.d.ts" />
+/// <reference path="../_declare/bluebird.d.ts" />
+/// <reference path="../_declare/knockout.d.ts" />
+/// <reference path="../app/viewModel/mainViewModel.ts" />
 'use strict';
-import ko = require("knockout");
-import Promise = require('bluebird');
-import $ = require('jquery');
-import {MainViewModel} from "../viewModel/MainViewModel";
-
 describe('load data', function() {
+  var ko = require("knockout");
+  var Promise = require("bluebird");
+
   var mvm;
   var service;
   beforeEach(function() {
@@ -23,7 +19,7 @@ describe('load data', function() {
         }]);
       }
     };
-    mvm = new MainViewModel(service);
+    mvm = new Demo.ViewModel.MainViewModel(service);
   });
   describe('isBusy', function() {
     it('should not be isBusy by default', function() {
@@ -42,7 +38,11 @@ describe('load data', function() {
     });
   });
 });
+
 describe('saveCustomerCommand', function() {
+  var ko = require("knockout");
+  var Promise = require("bluebird");
+
   var mvm;
   var service;
   var refreshed;
@@ -62,7 +62,7 @@ describe('saveCustomerCommand', function() {
         });
       }
     };
-    mvm = new MainViewModel(service);
+    mvm = new Demo.ViewModel.MainViewModel(service);
     refreshed = mvm.refreshCommand();
   });
   it('should be able to save customer directly after editing the name', function(done) {
@@ -84,3 +84,4 @@ describe('saveCustomerCommand', function() {
     });
   });
 });
+

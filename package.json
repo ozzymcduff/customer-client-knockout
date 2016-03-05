@@ -11,28 +11,13 @@
   "license": "MIT",
   "developedBy": "wallymathieu",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-banner": "^0.4.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-cssmin": "^0.12.3",
-    "grunt-contrib-handlebars": "^0.10.2",
-    "grunt-contrib-htmlmin": "^0.4.0",
-    "grunt-contrib-requirejs": "^0.4.4",
-    "grunt-contrib-uglify": "^0.9.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-env": "^0.4.4",
-    "grunt-express": "^1.4.1",
-    "grunt-manifest": "^0.4.0",
-    "grunt-open": "^0.2.3",
-    "grunt-parallel": "^0.4.1",
-    "grunt-preprocess": "^4.1.0",
-    "grunt-typescript": "^0.8.0",
-    "grunt-usemin": "^3.0.0",
-    "matchdep": "^0.3.0",
-    "mocha": "^2.2.5",
-    "requirejs": "^2.1.17"
+    "connect": "^3.4.1",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.12.1",
+    "serve-static": "^1.10.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gulp-concat-util": "^0.5.5",
+    "requirejs": "^2.1.17"
+  }
 }
